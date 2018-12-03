@@ -1,13 +1,13 @@
 const express = require('express')
 const hbs = require('hbs')
+const port = process.env.PORT || 3000
 
 var data = express()
 hbs.registerPartials(__dirname+'/views/partials')
 hbs.registerHelper('getCurrentYear',()=>{
     return  new Date().getFullYear()
 })
-data.set('view engine','hbs')
-data.use((req,res,next)=>{
+ data.use((req,res,next)=>{
     res.render('maintain.hbs')
 })
 data.use(express.static(__dirname+'/public'))
@@ -35,4 +35,6 @@ data.get('/about',(req,res)=>{
     })
 })
 
-data.listen(3000)
+data.listen(port,()=>{
+    console.log(`server is up in port ${port}`)
+})
